@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Emoji Radio Button using HTML and CSS</title>
+    <meta name="description" content="Emoji Radio Button using HTML and CSS">
+    <link href="main.css" rel="stylesheet">
+</head>
+
+<body>
+    <h1>Emoji Radio Buttons</h1>
+    <main>
+        <section id="pattern1">
+            <h2>Face</h2>
+            <input type="radio" name="g1" id="g1_1" checked><label for="g1_1">Yes</label><br />
+            <input type="radio" name="g1" id="g1_2"><label for="g1_2">No</label><br />
+            <input type="radio" name="g1" id="g1_3"><label for="g1_3">N/A</label>
+        </section>
+    </main>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Noto+Emoji:wght@700&family=Noto+Sans+Symbols+2&family=Spectral:wght@600&display=block");
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            overscroll-behavior-x: none;
+            overscroll-behavior-y: none;
+        }
+
+        body {
+            background: lightblue;
+            color: #828e2dc4;
+            position: relative;
+            font-family: "Spectral", serif;
+            font-size: 20px;
+            width: 100vw;
+            height: auto;
+            min-height: 100vh;
+            text-align: center;
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 7vw;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 25px;
+            color: white;
+        }
+
+        main {
+            margin: 5px 0;
+        }
+
+        section {
+            position: relative;
+            display: inline-block;
+            text-align: left;
+            vertical-align: top;
+            margin: 0 13px;
+        }
+
+        input,
+        input::before,
+        label {
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        label {
+            position: relative;
+            font-size: 18px;
+            margin-left: 5px;
+            vertical-align: top;
+            cursor: pointer;
+            color: #333;
+        }
+
+        #pattern1 input[type="radio"]::before {
+            font-family: "Noto Emoji", sans-serif;
+            position: absolute;
+            top: -3.5px;
+            left: -4.2px;
+            width: 25px;
+            height: 25px;
+            font-size: 21.5px;
+            content: "";
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        #pattern1 input[type="radio"]:nth-of-type(1)::before {
+            content: "�";
+        }
+
+        #pattern1 input[type="radio"]:nth-of-type(2)::before {
+            content: "�";
+        }
+
+        #pattern1 input[type="radio"]:nth-of-type(3)::before {
+            content: "�";
+        }
+
+        #pattern1 input[type="radio"] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            position: relative;
+            width: 25px;
+            height: 25px;
+            background-color: #fff;
+            color: coral;
+            border: 3px solid gray;
+            border-radius: 50%;
+            transition: border-color 0.3s;
+        }
+
+        #pattern1 input[type="radio"]:checked {
+            border-color: coral;
+        }
+
+        #pattern1 input[type="radio"]:checked::before {
+            opacity: 1;
+        }
+    </style>
+
+</body>
+
+</html>
