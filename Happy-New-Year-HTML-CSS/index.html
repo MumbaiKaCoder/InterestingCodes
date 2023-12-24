@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Happy New Year using HTML and CSS</title>
+    <meta name="description" content="Happy New Year using HTML and CSS">
+</head>
+
+<body>
+    <div class="container">
+        HAPPY NEW YEAR
+        <h1 class="Year thisYear">2024</h1>
+        <h1 class="Year lastYear">2024</h1>
+    </div>
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Ultra");
+
+        body {
+            background-color: #070707;
+            font-family: "Ultra", serif;
+        }
+
+        .container {
+            height: 250px;
+            width: 450px;
+            padding: 0;
+            margin: 0;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            list-style-type: none;
+            border-radius: 10px;
+            text-align: center;
+            color: #E8DDB5;
+            font-size: 4rem;
+            line-height: 1;
+        }
+
+        .container .Year {
+            display: inline-block;
+            font-size: 8rem;
+            margin: 0;
+            left: 50%;
+            position: absolute;
+            margin: auto;
+            color: #070707;
+            bottom: 0;
+        }
+
+        .container .Year.thisYear {
+            animation: thisYear 4s linear infinite;
+        }
+
+        .container .Year.lastYear {
+            animation: lastYear 4s linear infinite;
+        }
+
+        @keyframes lastYear {
+
+            0%,
+            100% {
+                transform: translateX(-50%) rotateY(45deg);
+                opacity: 0;
+            }
+
+            50% {
+                transform: translateX(-50%) rotateY(-45deg);
+                text-shadow: -6px 0px 1px #E8DDB5, -8px 0px 1px #E8DDB5, -10px 0px 1px #E8DDB5, -12px 0px 1px #E8DDB5;
+                opacity: 1;
+            }
+        }
+
+        @keyframes thisYear {
+
+            0%,
+            100% {
+                transform: translateX(-50%) rotateY(-45deg);
+                text-shadow: 6px 0px 1px #E8DDB5, 8px 0px 1px #E8DDB5, 10px 0px 1px #E8DDB5, 12px 0px 1px #E8DDB5;
+                opacity: 1;
+            }
+
+            50% {
+                transform: translateX(-50%) rotateY(45deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</body>
+
+</html>
