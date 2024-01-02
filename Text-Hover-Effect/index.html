@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Text Hover Effect</title>
+    <meta name="description" content="Text Hover Effect">
+</head>
+
+<body>
+    <div class="hover">Hover me </div>
+    <div class="hover">Hover me </div>
+    <style>
+        .hover {
+            --c: linear-gradient(#000 0 0);
+            /* update the color here */
+
+            padding-bottom: .15em;
+            background: var(--c), var(--c);
+            background-size: .3em .1em;
+            background-position: 50% 100%;
+            background-repeat: no-repeat;
+            transition: .3s linear, background-size .3s .2s linear;
+        }
+
+        .hover:hover {
+            background-size: 40% .1em;
+            background-position: 10% 100%, 90% 100%;
+        }
+
+
+
+
+        /**/
+        [class] {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 60px;
+            font-family: sans-serif;
+            cursor: pointer;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            display: grid;
+            place-content: center;
+        }
+    </style>
+</body>
+
+</html>
