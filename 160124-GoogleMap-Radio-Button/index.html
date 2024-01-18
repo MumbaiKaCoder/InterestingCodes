@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Google Map Radio Button</title>
+    <meta name="description" content="Google Map Radio Button">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Google maps radio buttons CSS only</h1>
+        <div id="radios">
+            <label for="driving" class="material-icons">
+                <input type="radio" name="mode" id="driving" value="driving" checked />
+                <span>&#xE531;</span>
+            </label>
+            <label for="cycling" class="material-icons">
+                <input type="radio" name="mode" id="cycling" value="cycling" />
+                <span>&#xE52F;</span>
+            </label>
+            <label for="walking" class="material-icons">
+                <input type="radio" name="mode" id="walking" value="walking" />
+                <span>&#xE536;</span>
+            </label>
+        </div>
+    </div>
+    <style>
+        #radios label {
+            cursor: pointer;
+            position: relative;
+        }
+
+        #radios label+label {
+            margin-left: 15px;
+        }
+
+        input[type="radio"] {
+            opacity: 0;
+            /* hidden but still tabable */
+            position: absolute;
+        }
+
+        input[type="radio"]+span {
+            font-family: 'Material Icons';
+            color: #B3CEFB;
+            border-radius: 50%;
+            padding: 12px;
+            transition: all 0.4s;
+            -webkit-transition: all 0.4s;
+        }
+
+        input[type="radio"]:checked+span {
+            color: #D9E7FD;
+            background-color: #4285F4;
+        }
+
+        input[type="radio"]:focus+span {
+            color: #fff;
+        }
+
+        /* ================ TOOLTIPS ================= */
+
+        #radios label:hover::before {
+            content: attr(for);
+            font-family: Roboto, -apple-system, sans-serif;
+            text-transform: capitalize;
+            font-size: 11px;
+            position: absolute;
+            top: 170%;
+            left: 0;
+            right: 0;
+            opacity: 0.75;
+            background-color: #323232;
+            color: #fff;
+            padding: 4px;
+            border-radius: 3px;
+            display: block;
+        }
+
+        h1 {
+            font-weight: 300;
+            color: #D9E7FD;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        #radios {
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .container {
+            margin: 0 auto;
+        }
+
+        html {
+            height: 100%;
+            font-family: Roboto, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: #3367D6;
+            display: flex;
+            height: 100%;
+            align-items: center;
+            text-align: center;
+        }
+    </style>
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Male and Female Radio Button</title>
+    <meta name="description" content="Male and Female Radio Button">
+</head>
+
+<body>
+    <input type="radio" name="sex" value="f" data-icon='' />
+    <input type="radio" name="sex" value="m" data-icon='' />
+
+    <style>
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css');
+
+        body {
+            background: #e67e22;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        input[name='sex'] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            -o-appearance: none;
+            appearance: none;
+            outline: none;
+        }
+
+        input[name='sex']:after {
+            font-family: 'FontAwesome';
+            display: inline-block;
+            text-align: center;
+            font-size: 80px;
+            content: attr(data-icon);
+            padding: 20px 20px;
+            border-radius: 15px;
+            color: rgba(0, 0, 0, 0.4);
+            transition: box-shadow 1s, color 1s;
+        }
+
+        input[name='sex']:checked:after {
+            box-shadow: 2px 2px 14px rgba(0, 0, 0, 0.4);
+            color: rgba(255, 255, 255, 0.6);
+        }
+    </style>
+</body>
+
+</html>

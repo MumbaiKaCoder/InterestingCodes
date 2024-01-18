@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Modern Tabs</title>
+    <meta name="description" content="Modern Tabs">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="overlay"></div>
+
+    <!-- begin nav -->
+    <div class="nav">
+        <ul class="tabs">
+            <li class="tabs_item tab tab__bookmark tab__is-active">
+                <div class="tab_circle"></div>
+                <i class="fa fa-bookmark tab_icon"></i>
+                <span class="tab_name"> Bookmark</span>
+            </li>
+
+            <li class="tabs_item tab tab__bell">
+                <div class="tab_circle"></div>
+                <i class="fa fa-bell tab_icon"></i>
+                <span class="tab_name"> Bell</span>
+            </li>
+
+            <li class="tabs_item tab tab__burn">
+                <div class="tab_circle"></div>
+                <i class="fa fa-cloud-upload tab_icon"></i>
+                <span class="tab_name"> Upload</span>
+            </li>
+
+            <li class="tabs_item tab tab__clipboard">
+                <div class="tab_circle"></div>
+                <i class="fa fa-clipboard tab_icon"></i>
+                <span class="tab_name"> Clipboard</span>
+            </li>
+
+            <li class="tabs_item tab tab__comment">
+                <div class="tab_circle"></div>
+                <i class="fa fa-comment tab_icon"></i>
+                <span class="tab_name"> Comment</span>
+            </li>
+        </ul>
+    </div>
+    <!-- end nav -->
+    <style>
+        @font-face {
+            font-family: 'Ubuntu';
+            font-style: normal;
+            font-weight: 300;
+            src: url(https://fonts.gstatic.com/s/ubuntu/v20/4iCv6KVjbNBYlgoC1CzjtGyI.ttf) format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Ubuntu';
+            font-style: normal;
+            font-weight: 400;
+            src: url(https://fonts.gstatic.com/s/ubuntu/v20/4iCs6KVjbNBYlgoKew7z.ttf) format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Ubuntu';
+            font-style: normal;
+            font-weight: 500;
+            src: url(https://fonts.gstatic.com/s/ubuntu/v20/4iCv6KVjbNBYlgoCjC3jtGyI.ttf) format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Ubuntu';
+            font-style: normal;
+            font-weight: 700;
+            src: url(https://fonts.gstatic.com/s/ubuntu/v20/4iCv6KVjbNBYlgoCxCvjtGyI.ttf) format('truetype');
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100%;
+            transition: 0.5s;
+            overflow: hidden;
+        }
+
+        .overlay {
+            height: 200vw;
+            width: 200vw;
+            border-radius: 50%;
+            background: #000;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .nav {
+            background: white;
+            padding: 22px 45px;
+            border-radius: 15px;
+            box-shadow: 3px 3px 15px rgba(179, 179, 179, 0.185);
+            position: relative;
+            z-index: 1000;
+        }
+
+        .tabs {
+            display: flex;
+            width: 390px;
+            justify-content: space-around;
+            list-style-type: none;
+        }
+
+        .tab {
+            padding: 13px 23px;
+            background: #e0efff;
+            color: #58a6ff;
+            margin-right: 15px;
+            border-radius: 55px;
+            text-align: center;
+            white-space: nowrap;
+            transition: 0.3s ease;
+            overflow: hidden;
+            max-width: 0px;
+            cursor: pointer;
+            position: relative;
+            flex-basis: 120px;
+        }
+
+        .tab__is-active {
+            max-width: 100px;
+            box-shadow: 7px 7px 15px rgba(124, 124, 124, 0.096);
+        }
+
+        .tab__is-active .tab_name {
+            opacity: 1;
+        }
+
+        .tab_circle {
+            position: absolute;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            border: 2px solid #58a6ff;
+            z-index: 10;
+            opacity: 0;
+            left: 30px;
+            pointer-events: none;
+        }
+
+        .tab_icon {
+            margin-right: 1px;
+            font-size: 16px;
+            vertical-align: middle;
+            position: relative;
+            right: 6.7px;
+            top: -1px;
+        }
+
+        .tab_name {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            position: relative;
+            transition: 0.3s ease;
+            top: 1px;
+            opacity: 0;
+        }
+
+        .tab__bookmark {
+            background: #cffcff;
+            color: #00a8b5;
+        }
+
+        .tab__burn {
+            background: #f1ddff;
+            color: #774898;
+        }
+
+        .tab__clipboard {
+            background: #ffddeb;
+            color: #de4383;
+        }
+
+        .tab__comment {
+            background: #ffeed5;
+            color: #f3ae4b;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.0/TweenMax.min.js"></script>
+    <script>
+        let tabs = document.querySelectorAll('.tab')
+        let overlay = document.querySelector('.overlay')
+
+
+        let firstActive = document.querySelector(".tab__is-active")
+        let activeColor = getComputedStyle(firstActive).color;
+        overlay.style.background = activeColor;
+        document.body.style.background = activeColor;
+
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function () {
+                let tl = new TimelineLite();
+
+                let accentColor = getComputedStyle(this).color;
+                document.body.style.background = accentColor;
+                this.children[0].style.borderColor = accentColor;
+
+
+
+                if (!this.classList.contains('tab__is-active')) {
+                    tl.fromTo(this.children[0], 0.4, { scale: 0, opacity: 1 }, { scale: 3, opacity: 0 }, "0")
+                    overlay.style.background = accentColor;
+                    tl.fromTo(overlay, 1, { scale: 0, opacity: 0 }, { scale: 1, opacity: 1 }, "0");
+                }
+                tabs.forEach(tab => tab.classList.remove("tab__is-active"));
+                this.classList.add("tab__is-active");
+            })
+        })
+    </script>
+</body>
+
+</html>
