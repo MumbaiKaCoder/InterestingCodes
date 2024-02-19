@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Funky Notification with Animation</title>
+	<meta name="description" content="Funky Notification with Animation">
+</head>
+
+<body>
+
+
+	<div class="toggle__container">
+		<div class="toggle__label toggle__label--light">Light</div>
+		<div class="toggle"></div>
+		<div class="toggle__label toggle__label--dark">Dark</div>
+	</div>
+	<div class="card">
+		<div class="card__header">
+			<div class="title">
+				<div class="title__icon"></div>
+				<div class="title__wordmark">Funky Notifications</div>
+			</div>
+			<div class="action__container">
+				<button class="action action--like">
+					<svg class="action__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+						stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+						aria-hidden="true">
+						<path
+							d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+						</path>
+					</svg>
+					<div class="action__label">0</div>
+				</button>
+			</div>
+		</div>
+		<div class="card__body">Click the icon to generate a dynamic animation behind the notification.</div>
+	</div>
+	<style>
+		html {
+			--gray-darkest: #24292e;
+			--gray-darker: #2f363d;
+			--gray-dark: #586069;
+			--gray-light: #959da5;
+			--gray-lighter: #e1e4e8;
+			--gray-lightest: #fafbfc;
+			--black: #000000;
+			--white: #FFFFFF;
+			--blue: #0AAFFF;
+			--purple: #7551E9;
+			--orange: #FF7D51;
+			--pink: #ED63D2;
+			--green: #2DCA73;
+			--yellow: #FFC212;
+			--bg: var(--gray-lighter);
+			--text-color: var(--gray-darkest);
+			--component-bg: var(--white);
+			--component-border: var(--gray-lighter);
+		}
+
+		html {
+			font-size: 62.5%;
+			box-sizing: border-box;
+		}
+
+		*,
+		*:before,
+		*:after {
+			box-sizing: border-box;
+		}
+
+		html,
+		body {
+			height: 100%;
+			width: 100%;
+		}
+
+		body {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+			background: var(--bg);
+			color: var(--text-color);
+			font-size: 2rem;
+			font-family: "Nunito Sans", system-ui;
+			line-height: 1.5;
+			padding-left: 1rem;
+			padding-right: 1rem;
+		}
+
+		.card {
+			background: var(--component-bg);
+			width: 100%;
+			max-width: 500px;
+			border-radius: 1.6rem;
+			border: 1px solid var(--component-border);
+			box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05), 0px 8px 16px rgba(0, 0, 0, 0.05);
+			position: relative;
+			margin-bottom: 2.4rem;
+			z-index: 1;
+			transition: all 0.2s ease-out 0s;
+		}
+
+		.card__header {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding-top: 2rem;
+			padding-bottom: 1rem;
+		}
+
+		.card__body {
+			padding-top: 1rem;
+			padding-bottom: 2rem;
+		}
+
+		.card__header,
+		.card__body {
+			padding-left: 2rem;
+			padding-right: 2rem;
+		}
+
+		.title {
+			display: flex;
+			align-items: center;
+		}
+
+		.title__icon,
+		.title__wordmark {
+			display: inline-block;
+		}
+
+		.title__icon {
+			width: 1.2em;
+			height: 1.2em;
+			background: var(--blue);
+			margin-right: 1rem;
+			border-radius: 5px;
+		}
+
+		.title__wordmark {
+			font-weight: 700;
+		}
+
+		.action {
+			cursor: pointer;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+			text-align: center;
+			line-height: 1;
+			transition: all 0.1s ease-out 0s;
+			position: relative;
+			z-index: 200;
+			background: none;
+			border: 0;
+		}
+
+		.action:before {
+			content: "";
+			position: absolute;
+			background: var(--pink);
+			opacity: 0.2;
+			width: 0px;
+			height: 0px;
+			display: block;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			z-index: 100;
+			border-radius: 50%;
+			transition: all 0.2s ease-out 0s;
+		}
+
+		.action__icon {
+			width: 2rem;
+			height: 2rem;
+			color: var(--text-color);
+		}
+
+		.action__label {
+			font-size: 1.6rem;
+			color: var(--gray-light);
+		}
+
+		.action__container {
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+		}
+
+		.action:hover,
+		.action:focus {
+			color: var(--pink);
+		}
+
+		.action:hover:before,
+		.action:focus:before {
+			width: 45px;
+			height: 45px;
+			transition: all 0.2s ease-out 0s;
+		}
+
+		.action:active,
+		.action:focus {
+			outline: 0;
+		}
+
+		.action:active .action__icon,
+		.action:focus .action__icon {
+			color: var(--pink);
+			fill: var(--pink);
+		}
+
+		.action:active .action__label,
+		.action:focus .action__label {
+			color: var(--pink);
+		}
+
+		.animation {
+			z-index: 0;
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			width: 480px;
+			height: 390px;
+		}
+
+		.animation__item {
+			width: 2rem;
+			height: 2rem;
+			position: absolute;
+			-webkit-animation: centerIn 1s ease-out forwards;
+			animation: centerIn 1s ease-out forwards;
+		}
+
+		@-webkit-keyframes centerIn {
+			from {
+				left: 50%;
+				top: 50%;
+				bottom: 50%;
+				right: 50%;
+				transform: translate(-50%, -50%) rotate(-315deg);
+				opacity: 1;
+			}
+
+			to {
+				transform: initial;
+				opacity: 0;
+			}
+		}
+
+		@keyframes centerIn {
+			from {
+				left: 50%;
+				top: 50%;
+				bottom: 50%;
+				right: 50%;
+				transform: translate(-50%, -50%) rotate(-315deg);
+				opacity: 1;
+			}
+
+			to {
+				transform: initial;
+				opacity: 0;
+			}
+		}
+
+		.toggle {
+			z-index: 2;
+			width: 4.5rem;
+			height: 1.5rem;
+			position: relative;
+			background: var(--black);
+			border-radius: 999px;
+			cursor: pointer;
+			display: inline-block;
+			margin: auto 1.5rem;
+		}
+
+		.toggle__label {
+			font-size: 1.2rem;
+			display: inline-block;
+			text-transform: uppercase;
+			letter-spacing: 0.0625em;
+			font-weight: 700;
+		}
+
+		.toggle__label--dark {
+			color: var(--gray-dark);
+		}
+
+		.toggle__label--light {
+			color: var(--gray-darkest);
+		}
+
+		.toggle:before {
+			position: absolute;
+			border-radius: 999px;
+			left: 0;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			transform-origin: center;
+			content: "";
+			width: 2.25rem;
+			height: 2.25rem;
+			background: var(--gray-dark);
+			transition: all 0.2s ease 0s;
+		}
+
+		.toggle__container {
+			text-align: center;
+			margin: 0 auto 9rem auto;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		}
+
+		.toggle__container.active .toggle:before {
+			left: 100%;
+		}
+
+		.toggle__container.active .toggle__label--light {
+			color: var(--gray-dark);
+		}
+
+		.toggle__container.active .toggle__label--dark {
+			color: var(--gray-lightest);
+		}
+	</style>
+	<script>
+		console.clear();
+
+		// Like Button + increasing count
+		const likeButton = document.querySelectorAll('.action--like');
+
+		likeButton.forEach(button => {
+			button.addEventListener('click', () => {
+				const countNum = button.parentNode.querySelector('.action__label');
+				increaseVal(countNum);
+				animationItem();
+				button.style.transform = 'scale(1.2)';
+				const rotateDeg = getRange(10);
+				button.parentNode.parentNode.parentNode.style.transform = `rotate(${rotateDeg}deg)`;
+				setTimeout(() => {
+					button.style.transform = '';
+					button.parentNode.parentNode.parentNode.style.transform = '';
+					button.blur();
+				}, 300);
+			});
+		});
+
+		const increaseVal = target => {
+			var value = parseInt(target.innerHTML, 10);
+			value = isNaN(value) ? 0 : value;
+			value++;
+			target.innerHTML = value;
+		};
+
+		// Create Shape Animation
+		const colorClasses = ['blue', 'purple', 'orange', 'pink', 'green', 'yellow'];
+
+		const getRange = x => {
+			const val = Math.floor(Math.random() * x);
+			return val;
+		};
+
+		const animationItem = () => {
+			const newContainer = document.createElement('div');
+			const randomRotate = getRange(360);
+			newContainer.classList = 'animation';
+			newContainer.style.transform = `translate(-50%,-50%) scale(1.5) rotate(${randomRotate}deg)`;
+
+			// Random positioning of each shape
+			function randomPos(a) {
+				a.style.top = `${getRange(100)}%`;
+				a.style.right = `${getRange(100)}%`;
+				a.style.left = `${getRange(100)}%`;
+				a.style.bottom = `${getRange(100)}%`;
+			}
+
+			// Random number of shapes generated
+			const maxNumberOfItems = 20;
+			const minNumberOfItems = 10;
+			const randomNumberOfItems = Math.floor(Math.random() * maxNumberOfItems + minNumberOfItems);
+
+			for (var i = 0; randomNumberOfItems > i; i++) {
+				if (window.CP.shouldStopExecution(0)) break;
+				// Random 0 - 4, generate circle, triangle, square, heart, star
+				let randomShapeNumber = getRange(4);
+				let randomClassNumber = getRange(6);
+				const newItem = document.createElement('div');
+				newItem.classList = 'animation__item';
+				randomPos(newItem);
+				if (randomShapeNumber == 0) {
+					newItem.innerHTML = `
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="var(--${colorClasses[randomClassNumber]})" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+					<circle cx="12" cy="12" r="10"></circle>
+				</svg>`;
+				} else if (randomShapeNumber == 1) {
+					newItem.innerHTML = `
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="var(--${colorClasses[randomClassNumber]})" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+     <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+    </svg>`;
+				} else if (randomShapeNumber == 2) {
+					newItem.innerHTML = `
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="var(--${colorClasses[randomClassNumber]})" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+					<rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+				</svg>`;
+				} else if (randomShapeNumber == 3) {
+					newItem.innerHTML = `
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="var(--${colorClasses[randomClassNumber]})" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+				<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+			</svg>
+			`;
+				} else {
+					newItem.innerHTML = `
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="var(--${colorClasses[randomClassNumber]})" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+					<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+				</svg>`;
+				}
+				newContainer.appendChild(newItem);
+			} window.CP.exitedLoop(0);
+
+			document.body.appendChild(newContainer);
+			setTimeout(() => {
+				newContainer.remove();
+			}, 1100);
+		};
+
+		// Toggle theme
+		const toggle = document.querySelector('.toggle');
+		const toggleContainer = document.querySelector('.toggle__container');
+		const root = document.documentElement;
+
+		toggle.addEventListener('click', function () {
+			if (toggleContainer.classList.contains('active')) {
+				toggleContainer.classList.remove('active');
+				root.style.setProperty('--bg', `var(--gray-lighter)`);
+				root.style.setProperty('--text-color', `var(--gray-darkest)`);
+				root.style.setProperty('--component-bg', `var(--white)`);
+				root.style.setProperty('--component-border', `var(--gray-lighter)`);
+			} else {
+				toggleContainer.classList.add('active');
+				root.style.setProperty('--bg', `var(--gray-darker)`);
+				root.style.setProperty('--text-color', `var(--gray-lightest)`);
+				root.style.setProperty('--component-bg', `var(--gray-darkest)`);
+				root.style.setProperty('--component-border', `var(--gray-darkest)`);
+			}
+		});
+	</script>
+</body>
+
+</html>

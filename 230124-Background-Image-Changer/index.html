@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Background Image Changer</title>
+    <meta name="description" content="Background Image Changer">
+</head>
+
+<body>
+    <section class="hero">
+        <div class="hero__image-wrapper">
+            <img id="hero__image" src="https://picsum.photos/1280/720" alt="Picsum placeholder image" />
+        </div>
+        <div class="hero__text">
+            <h1>Can't see text over an image?</h1>
+            <p>Fear not! Darkening the image behind the text will make the text much easier to see!</p>
+            <button id="hero__img-refresh">Refresh Image</button>
+        </div>
+    </section>
+
+    <style>
+        body {
+            margin: 0px;
+        }
+
+        .hero {
+            display: flex;
+            position: relative;
+            align-items: center;
+            justify-content: center;
+            width: 100vw;
+            height: 100vh;
+            max-height: 720px;
+            margin: 0 auto;
+            color: #fff;
+            text-align: center;
+        }
+
+        .hero:after {
+            z-index: 0;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            content: "";
+        }
+
+        .hero__image-wrapper {
+            display: flex;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        #hero__image {
+            width: auto;
+            min-width: 100%;
+            height: auto;
+            min-height: 100%;
+            object-fit: cover;
+        }
+
+        .hero__text {
+            z-index: 1;
+            max-width: 100%;
+            padding: 20px 5%;
+        }
+
+        .hero__text h1 {
+            margin: 0 0 24px;
+            font-family: "Merriweather", serif;
+            font-size: 50px;
+            line-height: 1.3;
+        }
+
+        .hero__text p {
+            margin: 0px 0px 40px;
+            font-family: "Lato", sans-serif;
+            font-size: 26px;
+            line-height: 1.3;
+        }
+
+        #hero__img-refresh {
+            padding: 14px 20px;
+            border: 2px solid #fff;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.4);
+            color: #fff;
+            font-family: "Lato", sans-serif;
+            font-size: 20px;
+            line-height: 1;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        #hero__img-refresh:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        @media only screen and (max-width: 768px) {
+            .hero__text h1 {
+                margin: 0 0 16px;
+                font-size: 40px;
+            }
+
+            .hero__text p {
+                margin: 0px 0px 48px;
+                font-size: 22px;
+            }
+
+            #hero__img-refresh {
+                font-size: 18px;
+            }
+        }
+    </style>
+
+    <script>
+        var imgRefreshBtn = document.getElementById("hero__img-refresh");
+
+        // Update the picsum image source on btn click
+        imgRefreshBtn.onclick = function () {
+            document.getElementById("hero__image").src =
+                "https://picsum.photos/1280/720?rand=" + new Date().getTime();
+        };
+
+    </script>
+
+
+</body>
+
+</html>
