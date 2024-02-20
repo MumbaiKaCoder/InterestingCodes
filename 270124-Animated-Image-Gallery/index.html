@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Animated Image Gallery</title>
+	<meta name="description" content="Animated Image Gallery">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://fonts.googleapis.com/css?family=Just+Another+Hand" rel="stylesheet">
+</head>
+
+<body>
+	<div class="desk"></div>
+	<div class="photos"></div>
+	<style>
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+			width: 100vw;
+			height: 100vh;
+			background: black;
+			overflow: hidden;
+		}
+
+		.desk {
+			width: 110vw;
+			height: 110vh;
+			left: -5vw;
+			top: -5vh;
+			background: black url(https://source.unsplash.com/5fIoyoKlz7A/1600x900) no-repeat 50% 50%;
+			background-size: cover;
+			overflow: hidden;
+			position: fixed;
+			transition: filter 0.2s ease;
+		}
+
+		.photos {
+			width: 100vw;
+			height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.drag {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			position: absolute;
+		}
+
+		figure {
+			margin: 0;
+			padding: 2vmin;
+			background: white;
+			width: 30vmin;
+			border-radius: 0.5vmin;
+			box-shadow: 0 0 4vmin rgba(0, 0, 0, 0.75), 0 0 0.5vmin rgba(0, 0, 0, 0.5);
+			font-family: 'Just Another Hand', cursive;
+			font-size: 4vmin;
+			position: absolute;
+			transition: box-shadow 0.2s ease, filter 0.2s ease;
+		}
+
+		.active figure {
+			box-shadow: 5vmin 5vmin 4vmin rgba(0, 0, 0, 0.75), 0 0 2vmin rgba(0, 0, 0, 0.2);
+		}
+
+		figure img {
+			max-width: 100%;
+			pointer-events: none;
+		}
+
+		figure figcaption {
+			text-align: center;
+			pointer-events: none;
+		}
+	</style>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/utils/Draggable.min.js"></script>
+	<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/ThrowPropsPlugin.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/TweenLite.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/plugins/CSSPlugin.min.js"></script>
+	<script>
+		console.clear();
+
+		getPhotos();
+
+		function getPhotos() {
+			var photos = [];
+			$.getJSON('https://picsum.photos/list', function (data) {
+				while (photos.length < 12) {
+					var rand = data[getRandomInt(0, data.length)];
+					if ($.inArray(rand, photos) == -1) {
+						photos.push(rand);
+					}
+				}
+				$('.photos').html('');
+				$.each(photos, function (i) {
+					$('<div class="drag" data-i="' + i + '"><figure class="spin"><img src="https://picsum.photos/400?image=' + this.id + '" alt="Photo by ' + this.author + '" onerror="this.parentElement.parentElement.style.display = \'none\';" /><figcaption>' + this.author + '</figcaption></figure></div>').appendTo('.photos');
+				});
+				scatterPhotos();
+			})
+		}
+
+		function scatterPhotos() {
+			var board = $('.photos');
+			var drag = $('.drag');
+			var spin = $('.spin');
+
+			$(drag.get().reverse()).each(function (index) {
+				TweenLite.to(this, .5, {
+					delay: index * 0.1,
+					x: getRandomInt(board.width() / 3 * -1, board.width() / 3),
+					y: getRandomInt(board.height() / 3 * -1, board.height() / 3)
+				});
+				TweenLite.to($(this).find('.spin'), .5, {
+					delay: index * 0.1,
+					rotation: getRandomInt(-30, 30)
+				});
+			});
+
+			Draggable.create(drag, {
+				bounds: board,
+				throwProps: true,
+				edgeResistance: 0,
+				type: 'x,y',
+				zIndexBoost: false,
+				onClick: function () {
+					var $this = $(this.target);
+					if ($this.hasClass('active')) {
+						TweenLite.to($this, .2, {
+							scaleX: 1,
+							scaleY: 1,
+							x: $this.attr('data-x'),
+							y: $this.attr('data-y')
+						});
+						TweenLite.to($this.find('.spin'), .2, {
+							rotation: $this.attr('data-r')
+						});
+						$this.removeClass('active');
+						$('body').removeClass('full');
+					} else {
+						$this.attr('data-x', $this[0]._gsTransform.x).attr('data-y', $this[0]._gsTransform.y).attr('data-r', $this.find('.spin')[0]._gsTransform.rotation);
+						TweenLite.to($this, .2, {
+							scaleX: 2,
+							scaleY: 2,
+							x: 0,
+							y: 0
+						});
+						TweenLite.to($this.find('.spin'), .2, {
+							rotation: 0
+						});
+						TweenLite.to($('.active'), .2, {
+							scaleX: 1,
+							scaleY: 1,
+							x: $('.active').attr('data-x'),
+							y: $('.active').attr('data-y')
+						});
+						TweenLite.to($('.active .spin'), .2, {
+							rotation: $this.attr('data-r')
+						});
+						$('.drag.active').removeClass('active');
+						$('body').removeClass('full');
+						$this.addClass('active').appendTo('.photos');
+						$('body').addClass('full');
+					}
+				},
+				onDrag: function () {
+					var $this = $(this.target);
+					TweenLite.to($this, .2, {
+						scaleX: 1,
+						scaleY: 1
+					});
+					$this.removeClass('active');
+					$('body').removeClass('full');
+				},
+				onThrowComplete: function () {
+					var $this = $(this.target);
+					var r = $this.find('.spin')[0]._gsTransform.rotation;
+					if (r > 360 || r < -360) {
+						r = r % 360;
+						TweenLite.to($this.find('.spin'), 0, {
+							rotation: r
+						});
+					}
+				}
+			});
+			Draggable.create(spin, {
+				type: 'rotation',
+				throwProps: true,
+				throwResistance: 25000,
+				minDuration: 0
+			});
+		}
+
+		function getRandomInt(min, max) {
+			return Math.floor(Math.random() * (max - min + 1)) + min;
+		}
+	</script>
+</body>
+
+</html>
