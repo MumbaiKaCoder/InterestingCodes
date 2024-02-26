@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Coding Navbar Animation</title>
+	<meta name="description" content="Navbar Animation">
+</head>
+
+<body>
+	<a href="https://youtu.be/Yix-rJKLt98" target="_blank" data-keyframers-credit style="color: #000"></a>
+	<script src="https://codepen.io/shshaw/pen/QmZYMG.js"></script>
+
+	<div class="container">
+		<input type="checkbox" id="reveal" />
+		<label for="reveal">Show everyone your password</label>
+		<input type="text" id="input" value="@keyframers" />
+		<div id="display" data-splitting>@keyframers</div>
+
+	</div>
+	<style>
+		@charset "UTF-8";
+
+		.splitting .char,
+		.splitting .whitespace {
+			color: transparent;
+		}
+
+		.splitting .char::before,
+		.splitting .char::after,
+		.splitting .whitespace::before,
+		.splitting .whitespace::after {
+			position: absolute;
+			visibility: visible;
+			color: black;
+			transition: transform 0.5s cubic-bezier(0.2, 0, 0.2, 1);
+			transition-delay: calc(.1s * var(--char-index));
+		}
+
+		.splitting .char::before,
+		.splitting .whitespace::before {
+			content: "•";
+			text-align: center;
+			transform: scale(1);
+		}
+
+		.splitting .char::after,
+		.splitting .whitespace::after {
+			content: attr(data-char);
+			transform: scale(0);
+		}
+
+		[type=checkbox]:checked~#display *::after {
+			transform: scale(1);
+		}
+
+		[type=checkbox]:checked~#display *::before {
+			transform: scale(0);
+		}
+
+		/* ---------------------------------- */
+		.container {
+			height: 10vw;
+			width: 70vw;
+			font-family: monospace;
+			font-size: 8vw;
+		}
+
+		#input {
+			font: inherit;
+			appearance: none;
+			border: none;
+			border-radius: 10vw;
+			position: absolute;
+			top: 0;
+			left: 0;
+			color: #FFF;
+			box-shadow: 0 1vw 6vw rgba(0, 0, 0, 0.03);
+		}
+
+		#input:focus {
+			outline: none;
+		}
+
+		#input,
+		#display {
+			padding: 2vw 5vw;
+			width: 100%;
+			white-space: nowrap;
+		}
+
+		#display {
+			pointer-events: none;
+			user-select: none;
+		}
+
+		#reveal,
+		label {
+			cursor: pointer;
+			font-size: 2vw;
+			position: absolute;
+			top: 150%;
+			text-align: center;
+			left: 0;
+			right: 0;
+			margin: auto;
+		}
+
+		#reveal {
+			margin-top: 1.5em;
+		}
+
+		html {
+			height: 100%;
+			display: flex;
+		}
+
+		body {
+			margin: auto;
+		}
+
+		html,
+		body {
+			background: #FFE3F5;
+			color: #333;
+			font-family: sans-serif;
+		}
+
+		*,
+		*:before,
+		*:after {
+			box-sizing: border-box;
+			position: relative;
+		}
+	</style>
+	<script src="https://unpkg.com/splitting/dist/splitting.min.js"></script>
+	<script>
+		console.clear();
+
+		const elInput = document.querySelector('#input');
+		const elDisplay = document.querySelector('#display');
+
+		Splitting({ whitespace: true });
+		elInput.addEventListener('input', () => {
+			elDisplay.innerHTML = Splitting.html({ content: elInput.value, whitespace: true });
+		});
+
+		window.setTimeout(() => { document.querySelector('#reveal').click() }, 1000);
+	</script>
+</body>
+
+</html>

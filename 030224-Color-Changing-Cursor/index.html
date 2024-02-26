@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Color Changing Cursor</title>
+	<meta name="description" content="Navbar Animation">
+</head>
+
+<body>
+	<div class="flex items-center justify-center h-screen bg-gray-200">
+		<div class="bg-white rounded-lg border shadow-lg p-4 w-1/5">
+			<label class='text-gray-800 font-regular'>Your Comment Here!</label>
+			<p class='text-gray-400 text-sm p-0 m-0'>The cursor will change colors as you type!</p>
+			<textarea id='comment' maxlength='50' class='bg-gray-200 p-1 h-20 w-full mt-0 good'></textarea>
+		</div>
+
+	</div>
+	<style>
+		.good {
+			caret-color: #10b981;
+		}
+
+		.warning {
+			caret-color: #FCD34D;
+		}
+
+		.danger {
+			caret-color: red;
+		}
+	</style>
+	<script>
+		const textarea = document.getElementById('comment')
+		const changeCursor = (e) => {
+			let { value } = e.target
+			let newClass = getRangeColor(e.target.maxLength, value.length)
+
+			e.target.classList.remove('good', 'warning', 'danger')
+			e.target.classList.add(newClass)
+		}
+
+		const getRangeColor = (maxLen, inputLen) => {
+			let range = maxLen / 3
+
+			if (between(inputLen, 0, range)) {
+				return 'good'
+			} else if (between(inputLen, range, range * 2)) {
+				return 'warning'
+			} else {
+				return 'danger'
+			}
+		}
+
+		const between = (x, min, max) => {
+			return x >= min && x <= max;
+		}
+
+		textarea.addEventListener('input', changeCursor);
+
+	</script>
+</body>
+
+</html>
