@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Coding Navbar Animation</title>
+	<meta name="description" content="Navbar Animation">
+</head>
+
+<body>
+	<button class="add-to-cart">
+		<div class="cart">
+			<svg viewBox="0 0 24 19">
+				<path
+					d="M11.25 17C11.25 17.6904 10.6904 18.25 10 18.25C9.30964 18.25 8.75 17.6904 8.75 17C8.75 16.3096 9.30964 15.75 10 15.75C10.6904 15.75 11.25 16.3096 11.25 17Z"
+					stroke-width="1.5 " />
+				<path
+					d="M19.25 17C19.25 17.6904 18.6904 18.25 18 18.25C17.3096 18.25 16.75 17.6904 16.75 17C16.75 16.3096 17.3096 15.75 18 15.75C18.6904 15.75 19.25 16.3096 19.25 17Z"
+					stroke-width="1.5 " />
+				<path
+					d="M1 1H5L5.91304 4M5.91304 4L8.06853 11.0823C8.32483 11.9245 9.10161 12.5 9.98188 12.5H18.585C19.4329 12.5 20.1887 11.9653 20.471 11.1656L23 4H5.91304Z"
+					stroke-width="2" />
+			</svg>
+			<img
+				srcset="https://assets.codepen.io/165585/alge.png 1x, https://assets.codepen.io/165585/alge@2x.png 2x" />
+		</div>
+		<span>Add to cart</span>
+		<div class="check">
+			<svg viewBox="0 0 10 10">
+				<path d="M2 5L4 7L8 3" />
+			</svg>
+		</div>
+		<svg class="background" viewBox="0 0 142 46">
+			<path
+				d="M0 19C0 10.7157 6.71573 4 15 4H41.4599C53.6032 4 62.4844 4 72.5547 4C82.6251 4 91.5063 4 103.65 4H137C139.761 4 142 6.23858 142 9V31C142 39.2843 135.284 46 127 46H5C2.23858 46 0 43.7614 0 41V19Z" />
+		</svg>
+	</button>
+	<style>
+		.add-to-cart {
+			--color: #000;
+			--background: #fff;
+			--drop: #38E739;
+			--background-s: 1;
+			--text-o: 1;
+			--text-x: 10px;
+			--bottle-x: -40%;
+			--bottle-y: -60px;
+			--bottle-s: .4;
+			--bottle-r: 0deg;
+			--bottle-o: 0;
+			--cart-x: -57px;
+			--cart-y: -2px;
+			--cart-r: 0deg;
+			--cart-s: 0.8;
+			--check-y: 0px;
+			--check-s: 0;
+			--check-offset: 8.5px;
+			-webkit-tap-highlight-color: transparent;
+			-webkit-appearance: none;
+			outline: none;
+			background: none;
+			border: none;
+			padding: 12px 0;
+			margin: 0;
+			width: 142px;
+			color: var(--color);
+			cursor: pointer;
+			position: relative;
+			text-align: center;
+			font: inherit;
+		}
+
+		.add-to-cart.clipped {
+			-webkit-clip-path: polygon(0 -80px, 100% -80px, 100% 80px, 0 80px);
+			clip-path: polygon(0 -80px, 100% -80px, 100% 80px, 0 80px);
+		}
+
+		.add-to-cart .background,
+		.add-to-cart .cart,
+		.add-to-cart .check {
+			position: absolute;
+			pointer-events: none;
+		}
+
+		.add-to-cart .background {
+			left: 0;
+			top: -4px;
+			right: 0;
+			bottom: 0;
+			display: block;
+			fill: var(--background);
+			transform: scale(var(--background-s)) translateZ(0);
+		}
+
+		.add-to-cart span {
+			position: relative;
+			z-index: 1;
+			line-height: 18px;
+			display: block;
+			font-size: 14px;
+			font-weight: 500;
+			opacity: var(--text-o);
+			transform: translateX(var(--text-x)) translateZ(0);
+		}
+
+		.add-to-cart .drop {
+			position: absolute;
+			z-index: 1;
+			left: 70px;
+			top: 8px;
+			width: 4px;
+			height: 4px;
+			border-radius: 50%;
+			background: var(--drop);
+		}
+
+		.add-to-cart .cart {
+			z-index: 2;
+			bottom: 11px;
+			left: calc(50% - 2px);
+			transform-origin: 10px 17px;
+			transform: translate(var(--cart-x), var(--cart-y)) scale(var(--cart-s)) rotate(var(--cart-r)) translateZ(0);
+		}
+
+		.add-to-cart .cart svg {
+			display: block;
+			width: 24px;
+			height: 19px;
+			stroke: var(--color);
+			stroke-linecap: round;
+			stroke-linejoin: round;
+			fill: none;
+			position: relative;
+			z-index: 1;
+			transform: translateZ(0);
+		}
+
+		.add-to-cart .cart img {
+			display: block;
+			position: absolute;
+			bottom: 7px;
+			left: 50%;
+			opacity: var(--bottle-o);
+			transform-origin: 50% 100%;
+			transform: translate(var(--bottle-x), var(--bottle-y)) scale(var(--bottle-s)) rotate(var(--bottle-r)) translateZ(0);
+		}
+
+		.add-to-cart .check {
+			bottom: 0;
+			left: 50%;
+			padding: 2px;
+			background: var(--background);
+			border-radius: 50%;
+			transform: translate(-50%, var(--check-y)) scale(var(--check-s)) translateZ(0);
+		}
+
+		.add-to-cart .check svg {
+			display: block;
+			width: 10px;
+			height: 10px;
+			fill: none;
+			stroke-width: 1.5;
+			stroke-linecap: round;
+			stroke-linejoin: round;
+			stroke: var(--color);
+			stroke-dasharray: 8.5px;
+			stroke-dashoffset: var(--check-offset);
+		}
+
+		html {
+			box-sizing: border-box;
+			-webkit-font-smoothing: antialiased;
+		}
+
+		* {
+			box-sizing: inherit;
+		}
+
+		*:before,
+		*:after {
+			box-sizing: inherit;
+		}
+
+		body {
+			min-height: 100vh;
+			display: flex;
+			font-family: "Inter", Arial;
+			justify-content: center;
+			align-items: center;
+			background: #000;
+		}
+
+		body .dribbble {
+			position: fixed;
+			display: block;
+			right: 20px;
+			bottom: 20px;
+		}
+
+		body .dribbble img {
+			display: block;
+			height: 28px;
+		}
+
+		body .twitter {
+			position: fixed;
+			display: block;
+			right: 64px;
+			bottom: 14px;
+		}
+
+		body .twitter svg {
+			width: 32px;
+			height: 32px;
+			fill: #1da1f2;
+		}
+	</style>
+	<script src="https://unpkg.co/gsap@3/dist/gsap.min.js"></script>
+	<script src="https://assets.codepen.io/16327/Physics2DPlugin3.min.js"></script>
+	<script src="https://assets.codepen.io/16327/MorphSVGPlugin3.min.js"></script>
+	<script>
+		const { to, registerPlugin, set, timeline } = gsap
+
+		gsap.registerPlugin(MorphSVGPlugin, Physics2DPlugin)
+
+		//gsap.globalTimeline.timeScale(.1);
+
+		document.querySelectorAll('.add-to-cart').forEach(button => {
+			let background = button.querySelector('.background path')
+			button.addEventListener('pointerdown', e => {
+				if (button.classList.contains('active')) {
+					return
+				}
+				to(button, {
+					'--background-s': .97,
+					duration: .1
+				})
+			})
+			button.addEventListener('click', e => {
+				e.preventDefault()
+				if (button.classList.contains('active')) {
+					return
+				}
+				button.classList.add('active')
+				to(button, {
+					keyframes: [{
+						'--background-s': .97,
+						duration: .1
+					}, {
+						'--background-s': 1,
+						delay: .1,
+						duration: .8,
+						ease: 'elastic.out(1, .6)'
+					}]
+				})
+				to(button, {
+					'--text-x': '16px',
+					'--text-o': 0,
+					duration: .2
+				})
+				to(button, {
+					keyframes: [{
+						'--cart-x': '-12px',
+						'--cart-s': 1,
+						duration: .25
+					}, {
+						'--bottle-s': 1,
+						'--bottle-o': 1,
+						duration: .15,
+						onStart() {
+							to(button, {
+								duration: .4,
+								keyframes: [{
+									'--bottle-r': '-8deg'
+								}, {
+									'--bottle-r': '8deg'
+								}, {
+									'--bottle-r': '0deg'
+								}]
+							})
+						}
+					}, {
+						'--bottle-y': '0px',
+						duration: .3,
+						delay: .15,
+						onStart() {
+							to(background, {
+								keyframes: [{
+									morphSVG: 'M0 19C0 10.7157 6.71573 4 15 4H41.4599C53.6032 4 62.4844 12 72.5547 12C82.6251 12 91.5063 4 103.65 4H137C139.761 4 142 6.23858 142 9V31C142 39.2843 135.284 46 127 46H5C2.23858 46 0 43.7614 0 41V19Z',
+									duration: .1,
+									delay: .18
+								}, {
+									morphSVG: 'M0 19C0 10.7157 6.71573 4 15 4H41.4599C53.6032 4 62.4844 4 72.5547 4C82.6251 4 91.5063 4 103.65 4H137C139.761 4 142 6.23858 142 9V31C142 39.2843 135.284 46 127 46H5C2.23858 46 0 43.7614 0 41V19Z',
+									duration: .8,
+									ease: 'elastic.out(1, .6)'
+								}]
+							})
+							to(button, {
+								'--bottle-s': .5,
+								duration: .15
+							})
+						}
+					}, {
+						'--cart-y': '3px',
+						duration: .1,
+						onStart() {
+							to(button, {
+								keyframes: [{
+									'--check-y': '24px',
+									'--check-s': 1,
+									duration: .25
+								}, {
+									'--check-offset': '0px',
+									duration: .25
+								}]
+							})
+						}
+					}, {
+						'--cart-y': '0px',
+						duration: .2
+					}, {
+						'--cart-x': '-6px',
+						'--bottle-r': '12deg',
+						'--bottle-x': '-25%',
+						duration: .15
+					}, {
+						'--cart-x': '-16px',
+						'--bottle-r': '-12deg',
+						'--bottle-x': '-50%',
+						duration: .2,
+						onStart() {
+							drops(button, 5, -130, -100);
+						},
+					}, {
+						'--cart-x': '92px',
+						'--cart-r': '-20deg',
+						duration: .4,
+						onStart() {
+							button.classList.add('clipped')
+						},
+						onComplete() {
+							set(button, {
+								'--cart-x': '-120px',
+								'--cart-s': .8,
+								'--cart-y': '-2px',
+								'--bottle-o': 0,
+								'--text-x': '2px'
+							})
+						}
+					}, {
+						'--cart-x': '-57px',
+						'--cart-r': '0deg',
+						'--check-s': 0,
+						duration: .3,
+						delay: .1,
+						clearProps: true,
+						onStart() {
+							to(button, {
+								'--text-x': '10px',
+								'--text-o': 1,
+								duration: .2,
+								delay: .1
+							})
+						},
+						onComplete() {
+							button.classList.remove('active', 'clipped')
+						}
+					}]
+				})
+			})
+		})
+
+		function drops(parent, quantity, minAngle, maxAngle) {
+			for (let i = quantity - 1; i >= 0; i--) {
+				let angle = gsap.utils.random(minAngle, maxAngle),
+					velocity = gsap.utils.random(60, 80)
+
+				let div = document.createElement('div')
+				div.classList.add('drop')
+
+				parent.appendChild(div);
+
+				set(div, {
+					opacity: 1,
+					scale: 0,
+				});
+				timeline({
+					onComplete() {
+						div.remove();
+					}
+				}).to(div, {
+					duration: .4,
+					scale: gsap.utils.random(.5, .7)
+				}, 0).to(div, {
+					duration: 1,
+					physics2D: {
+						angle: angle,
+						velocity: velocity,
+						gravity: 80
+					}
+				}, 0).to(div, {
+					duration: .3,
+					opacity: 0
+				}, .3);
+			}
+		}
+
+	</script>
+</body>
+
+</html>
