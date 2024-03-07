@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Donation Box Animation</title>
+	<meta name="description" content="Navbar Animation">
+</head>
+
+<body>
+	<div class="like">
+		<svg class="lines" viewBox="0 0 64 64">
+			<line x1="32" y1="32" x2="32.0" y2="00.0" />
+			<line x1="32" y1="32" x2="14.1" y2="05.2" />
+			<line x1="32" y1="32" x2="02.4" y2="18.4" />
+			<line x1="32" y1="32" x2="-0.2" y2="36.4" />
+			<line x1="32" y1="32" x2="07.3" y2="52.8" />
+			<line x1="32" y1="32" x2="22.6" y2="62.6" />
+			<line x1="32" y1="32" x2="40.3" y2="62.6" />
+			<line x1="32" y1="32" x2="55.5" y2="52.8" />
+			<line x1="32" y1="32" x2="63.1" y2="36.4" />
+			<line x1="32" y1="32" x2="60.4" y2="18.5" />
+			<line x1="32" y1="32" x2="49.0" y2="04.7" />
+		</svg>
+		<div class="circle"></div>
+		<svg class="hearth" viewBox="0 0 24 24">
+			<path d="
+			M 16.50  4.50
+			C 19.54  4.50  22.00  6.95  22.00  9.96
+			C 22.00 13.54  19.86 16.82  15.05 20.00
+			L 12.27 21.82
+			C 12.11 21.93  11.89 21.93  11.73 21.82
+			L  8.95 20.00
+			C  4.14 16.82   2.00 13.54   2.00  9.96
+			C  2.00  6.95   4.46  4.50   7.50  4.50
+			C  9.32  4.50  10.99 5.390  12.00  6.82
+			C 13.01  5.39  14.68  4.50  16.50  4.50
+			Z
+		" />
+		</svg>
+		<svg class="drop" viewBox="0 0 24 24">
+			<path d="
+			M 15.00 14.00
+			C 15.00 15.66  13.66 17.00  12.00 17.00
+			C 10.34 17.00   9.00 15.66   9.00 14.00
+			C  9.00 11.75  11.63  8.00  12.00  8.00
+			C 12.38  8.00  15.00 11.75  15.00 14.00
+			Z
+		" />
+		</svg>
+	</div>
+	<style>
+		:root {
+			--size: 50px;
+			--color-primary: #E18A6D;
+			--color-secondary: #FFFFFF;
+			--color-hearth: var(--color-secondary);
+			--color-drop: var(--color-primary);
+			--color-circle: var(--color-secondary);
+			--size-hearth: var(--size);
+			--size-drop: var(--size);
+			--size-circle: calc(var(--size) * 1.33);
+			--size-lines: calc(var(--size) * 2.66);
+			--ratio-hearth: 1;
+			--ratio-hearth-scale: 1;
+			--ratio-scale: 1;
+			--ratio-rotate: 1;
+			--ratio-offset-drop: 1;
+			--offset-drop: calc(var(--size) * 2);
+			--line-length: 5;
+			--line-offset: 35;
+			--opacity-circle: 0.15;
+			--opacity-drop: 0;
+			--opacity-lines: 0;
+		}
+
+		body {
+			background: linear-gradient(to right, #AD5389, #3C1053);
+			overflow: hidden;
+		}
+
+		.hearth,
+		.drop,
+		.like,
+		.circle,
+		.lines,
+		.background {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+
+		.hearth {
+			width: calc(var(--size-hearth) * var(--ratio-hearth));
+			height: calc(var(--size-hearth) / var(--ratio-hearth));
+			transform: translate(-50%, -50%) scaleX(var(--ratio-rotate)) scale(var(--ratio-hearth-scale));
+		}
+
+		.hearth path {
+			fill: var(--color-hearth);
+		}
+
+		.drop {
+			width: var(--size-drop);
+			height: var(--size-drop);
+			transform: translate(-50%, calc(-50% + var(--offset-drop) * -1 * var(--ratio-offset-drop))) scaleX(var(--ratio-rotate)) scale(var(--ratio-hearth-scale));
+			opacity: var(--opacity-drop);
+		}
+
+		.drop path {
+			fill: var(--color-drop);
+		}
+
+		.like {
+			width: var(--size-circle);
+			height: var(--size-circle);
+			transform: translate(-50%, -50%) scale(var(--ratio-scale));
+			cursor: pointer;
+			-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+			-webkit-tap-highlight-color: transparent;
+		}
+
+		.circle {
+			width: var(--size-circle);
+			height: var(--size-circle);
+			border-radius: 9999px;
+			background-color: var(--color-circle);
+			opacity: var(--opacity-circle);
+		}
+
+		.lines {
+			width: var(--size-lines);
+			height: var(--size-lines);
+			opacity: var(--opacity-lines);
+		}
+
+		.lines line {
+			stroke-dasharray: var(--line-length) 30;
+			stroke-dashoffset: var(--line-offset);
+			stroke: var(--color-drop);
+			stroke-width: 2px;
+			stroke-linecap: round;
+		}
+
+		.plus-one {
+			--ratio-offset-y: 0;
+			--ratio-offset-x: 0;
+			--ratio-scale: 0;
+			background-color: var(--color-primary);
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			border-radius: 9999px;
+			transform: translate(-50%, -70%) translate(calc(var(--size) * var(--ratio-offset-x)), calc(var(--size) * -2 * var(--ratio-offset-y))) rotate(calc(-20deg * var(--ratio-offset-x))) scale(var(--ratio-scale));
+		}
+
+		.plus-one:after {
+			content: "+1";
+			color: var(--color-secondary);
+			font-family: "Varela Round", sans-serif;
+			font-size: var(--size);
+			padding: 0.25em;
+		}
+
+		.background {
+			opacity: 0.25;
+			pointer-events: none;
+		}
+
+		.dribbble {
+			position: fixed;
+			display: block;
+			right: 20px;
+			bottom: 20px;
+		}
+
+		.dribbble img {
+			display: block;
+			height: 28px;
+		}
+
+		.twitter {
+			position: fixed;
+			display: block;
+			right: 64px;
+			bottom: 14px;
+		}
+
+		.twitter svg {
+			width: 32px;
+			height: 32px;
+			fill: #1da1f2;
+		}
+	</style>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.4.2/gsap.min.js"></script>
+	<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/MorphSVGPlugin3.min.js"></script>
+	<script>
+		gsap.registerPlugin(MorphSVGPlugin);
+
+		const like = document.querySelector('.like');
+		const background = document.querySelector('.background');
+		const hearthPath = document.querySelector('.hearth path').getAttribute('d');
+		const drop = document.querySelector('.drop path');
+		const dropPath = drop.getAttribute('d');
+
+		const size = gsap.getProperty(like, '--size');
+		const colorDrop = gsap.getProperty(like, '--color-drop');
+		const colorCircle = gsap.getProperty(like, '--color-circle');
+		const lineLength = gsap.getProperty(like, '--line-length');
+		const lineOffset = gsap.getProperty(like, '--line-offset');
+		const opacityCircle = gsap.getProperty(like, '--opacity-circle');
+
+		const playspeed = 1;
+
+		const keyframes = [
+/*  0 */ 0.00,//s
+/*  1 */ 0.20,//s
+/*  2 */ 0.25,//s
+/*  3 */ 0.35,//s
+/*  4 */ 0.40,//s
+/*  5 */ 0.50,//s
+/*  6 */ 0.55,//s
+/*  7 */ 0.65,//s
+/*  8 */ 0.70,//s
+/*  9 */ 0.75,//s
+/* 10 */ 0.90,//s
+/* 11 */ 1.10,//s
+/* 12 */ 1.25,//s
+/* 13 */ 1.42,//s
+/* 14 */ 1.60,//s
+		];
+
+		const timespan = (start, end) => ({
+			delay: keyframes[start] * (1 / playspeed),
+			duration: (keyframes[end] - keyframes[start]) * (1 / playspeed),
+		});
+
+		const handleClick = () => {
+			const plusOne = document.createElement('div');
+			plusOne.classList.add('plus-one');
+			like.appendChild(plusOne);
+
+			gsap.killTweensOf(like);
+			gsap.killTweensOf(drop);
+
+			/* Drop */
+			// Fall
+			gsap.fromTo(like, {
+				'--ratio-offset-drop': 1,
+				'--opacity-drop': 0,
+			}, {
+				'--opacity-drop': 1,
+				'--ratio-offset-drop': 0,
+				...timespan(0, 2),
+			});
+			// Morph
+			gsap.fromTo(drop, {
+				morphSVG: dropPath,
+			}, {
+				morphSVG: { shape: hearthPath, shapeIndex: 3 },
+				...timespan(2, 3),
+			})
+			// Fade
+			gsap.to(like, {
+				'--opacity-drop': 0,
+				...timespan(3, 5),
+			});
+			// Reset
+			gsap.to(drop, {
+				morphSVG: dropPath,
+				...timespan(5, 5),
+			});
+			/* Hearth */
+			// Rotate
+			gsap.fromTo(like, {
+				'--ratio-rotate': 1,
+			}, {
+				'--ratio-rotate': 0.25,
+				...timespan(0, 2),
+			});
+			gsap.to(like, {
+				'--ratio-rotate': 1,
+				...timespan(2, 5),
+			});
+			// Scale
+			gsap.fromTo(like, {
+				'--ratio-hearth-scale': 1,
+			}, {
+				'--ratio-hearth-scale': 0.9,
+				...timespan(1, 2),
+			});
+			gsap.to(like, {
+				'--ratio-hearth-scale': 1.4,
+				...timespan(2, 6),
+			});
+			gsap.to(like, {
+				'--ratio-hearth-scale': 0.95,
+				...timespan(6, 9),
+			});
+			gsap.to(like, {
+				'--ratio-hearth-scale': 1.05,
+				...timespan(9, 10),
+			});
+			gsap.to(like, {
+				'--ratio-hearth-scale': 1,
+				...timespan(10, 11),
+			});
+
+			/* Like */
+			// Scale
+			gsap.fromTo(like, {
+				'--ratio-scale': 1,
+			}, {
+				'--ratio-scale': 0.5,
+				...timespan(1, 3),
+			});
+			gsap.to(like, {
+				'--ratio-scale': 1.2,
+				...timespan(3, 5),
+			});
+			gsap.to(like, {
+				'--ratio-scale': 0.95,
+				...timespan(5, 8),
+			});
+			gsap.to(like, {
+				'--ratio-scale': 1,
+				...timespan(8, 10),
+			});
+
+			/* Circle */
+			// tint
+			gsap.fromTo(like, {
+				'--color-circle': colorCircle,
+				'--opacity-circle': opacityCircle,
+			}, {
+				'--color-circle': colorDrop,
+				'--opacity-circle': 1,
+				...timespan(3, 5),
+			});
+			// reset
+			gsap.to(like, {
+				'--color-circle': colorCircle,
+				'--opacity-circle': opacityCircle,
+				...timespan(11, 14),
+			});
+
+			/* Lines */
+			// Fade in
+			gsap.fromTo(like, {
+				'--opacity-lines': 0,
+				'--line-length': lineLength,
+				'--line-offset': lineOffset,
+			}, {
+				'--opacity-lines': 1,
+				...timespan(3, 4),
+			});
+			// Out
+			gsap.to(like, {
+				'--line-offset': 15,
+				...timespan(4, 6),
+			});
+			// Collapse
+			gsap.to(like, {
+				'--line-length': 0,
+				'--line-offset': 1,
+				...timespan(6, 8),
+			});
+			// Fade out
+			gsap.to(like, {
+				'--opacity-lines': 0,
+				...timespan(7, 8),
+			});
+			// Reset
+			gsap.to(like, {
+				'--line-length': lineLength,
+				'--line-offset': lineOffset,
+				...timespan(8, 8),
+			});
+
+			/* Plus-One */
+			// scale
+			gsap.to(plusOne, {
+				'--ratio-scale': 0.5,
+				ease: 'elastic',
+				...timespan(4, 14),
+			});
+			gsap.to(plusOne, {
+				'--ratio-offset-y': 1,
+				ease: 'none',
+				...timespan(4, 14),
+			});
+			gsap.to(plusOne, {
+				'--ratio-offset-x': .5,
+				ease: 'sine.inOut',
+				...timespan(5, 8),
+			});
+			gsap.to(plusOne, {
+				'--ratio-offset-x': -.25,
+				ease: 'sine.inOut',
+				...timespan(8, 11),
+			});
+			gsap.to(plusOne, {
+				'--ratio-offset-x': .15,
+				ease: 'sine.inOut',
+				...timespan(11, 13),
+			});
+			gsap.to(plusOne, {
+				'--ratio-offset-x': 0,
+				ease: 'sine.inOut',
+				...timespan(13, 14),
+			});
+			gsap.to(plusOne, {
+				opacity: 0,
+				ease: 'none',
+				...timespan(12, 14),
+				onComplete: () => {
+					plusOne.remove();
+				}
+			});
+
+			/* Background */
+			// Scale
+			gsap.fromTo(background, {
+				scale: 1,
+			}, {
+				scale: 1.1,
+				ease: 'sine.inOut',
+				...timespan(3, 5),
+			});
+			gsap.to(background, {
+				scale: 1,
+				ease: 'elastic',
+				...timespan(5, 14),
+			});
+		};
+
+		like.addEventListener('click', handleClick);
+		handleClick();
+
+
+	</script>
+</body>
+
+</html>

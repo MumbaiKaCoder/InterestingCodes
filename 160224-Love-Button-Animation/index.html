@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Donation Box Animation</title>
+	<meta name="description" content="Navbar Animation">
+</head>
+
+<body>
+	<button class="button button--primary">
+		<span class="button__text">Love</span>
+		<span class="button__icon">
+			<span class="heart__particles">
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+				<span class="heart__particle"></span>
+			</span>
+			<svg class="heart heart--stroke" viewBox="0 0 24 24">
+				<path
+					d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z">
+				</path>
+			</svg>
+			<svg class="heart heart--fill" viewBox="0 0 24 24">
+				<path
+					d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z">
+				</path>
+			</svg>
+		</span>
+	</button>
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			min-height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: #fafafa;
+		}
+
+		body>*+* {
+			margin-right: 24px;
+		}
+
+		:root {
+			--transition: 0.3;
+			--heart-fill: #e63b19;
+		}
+
+		.heart {
+			height: 100%;
+			width: 100%;
+			position: absolute;
+		}
+
+		.heart--stroke {
+			stroke: var(--heart-stroke);
+			stroke-width: 2.5px;
+			fill: none;
+		}
+
+		.heart--fill {
+			stroke: none;
+			fill: var(--heart-fill);
+			transform: scale(var(--scale, 0));
+		}
+
+		.heart__particle {
+			height: 16px;
+			width: 16px;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			border-radius: 50%;
+			background: hsl(var(--h), 80%, 70%);
+			transform: translate(-50%, -50%) rotate(calc(var(--r, 0) * 1deg)) translate(0, calc(var(--radius, 0) * 1px)) scale(0);
+		}
+
+		.button {
+			height: 40px;
+			border: 0;
+			cursor: pointer;
+			border-radius: 6px;
+			position: relative;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 100px;
+			font-family: sans-serif;
+			text-align: left;
+			outline: transparent;
+			color: var(--stroke);
+			background: var(--fill);
+			background: hsl(var(--hue), calc(var(--saturation) * 1%), calc(var(--lightness) * 1%));
+			box-shadow: 2px 4px 4px rgba(26, 26, 26, 0.5);
+			transition: box-shadow 0.2s, background 0.2s;
+		}
+
+		.button--primary {
+			--hue: 260;
+			--saturation: 50;
+			--lightness: 20;
+			--stroke: #fff;
+			--heart-stroke: #fff;
+			margin-right: 24px;
+		}
+
+		.button--secondary {
+			--hue: 0;
+			--saturation: 0;
+			--lightness: 100;
+			--stroke: #666;
+			--heart-stroke: #999;
+		}
+
+		.button__text {
+			margin-right: 6px;
+			opacity: var(--opacity);
+		}
+
+		.button__icon {
+			position: relative;
+			height: 24px;
+			width: 24px;
+		}
+
+		.button:hover {
+			--scale: 0.3;
+			background: hsl(var(--hue), calc(var(--saturation) * 1%), calc(var(--lightness) * 0.96%));
+			box-shadow: 2px 2px 4px rgba(26, 26, 26, 0.5);
+		}
+
+		.button:hover .heart--fill {
+			transition: transform calc(var(--transition) * 1s) cubic-bezier(0.7, 0.9, 0.6, 2.5);
+		}
+
+		.button:active {
+			background: hsl(var(--hue), calc(var(--saturation) * 1%), calc(var(--lightness) * 0.92%));
+			box-shadow: 0 0 0 rgba(26, 26, 26, 0.5);
+		}
+
+		.button--active,
+		.button--active:hover {
+			--scale: 0.94;
+			--opacity: 0.25;
+		}
+
+		.button--active .heart--fill,
+		.button--active:hover .heart--fill {
+			transition: transform calc(var(--transition) * 1s) cubic-bezier(0.7, 0.9, 0.6, 2.5);
+		}
+
+		.button--active .button__text,
+		.button--active:hover .button__text {
+			transition: opacity 0.1s;
+		}
+
+		.button--active .heart__particle,
+		.button--active:hover .heart__particle {
+			opacity: 0;
+			transform: translate(-50%, -50%) rotate(calc(var(--r, 0) * 1deg)) translate(0, calc(var(--d, 0) * 1px)) scale(var(--s));
+			transition: transform calc(var(--t) * 1.25s) calc(var(--transition) * 0.5s), opacity calc(var(--transition) * 0.25s) calc(var(--t) * 1.25s);
+		}
+	</style>
+	<script>
+		const random = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+		const COUNT = 360 / 6;
+		const BTN = document.querySelectorAll(".button");
+
+		const setParticles = b => {
+			const PARTICLES = b.querySelectorAll('.heart__particle');
+			PARTICLES.forEach((particle, index) => {
+				const CHARACTER = {
+					"--d": random(30, 60),
+					"--r": 360 / 25 * index,
+					"--h": random(0, 360),
+					"--t": random(25, 50) / 100,
+					"--s": random(20, 60) / 100
+				};
+
+				particle.setAttribute(
+					"style",
+					JSON.stringify(CHARACTER).
+						replace(/,/g, ";").
+						substring(1, JSON.stringify(CHARACTER).length - 1).
+						replace(/"/g, ""));
+
+			});
+		};
+
+
+		BTN.forEach(b => {
+			setParticles(b);
+			b.addEventListener("click", () => {
+				b.classList.toggle('button--active');
+				if (b.classList.contains('button--active')) setParticles(b);
+			});
+		});
+	</script>
+</body>
+
+</html>
